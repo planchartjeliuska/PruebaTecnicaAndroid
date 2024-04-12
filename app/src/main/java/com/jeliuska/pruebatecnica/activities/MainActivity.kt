@@ -1,4 +1,4 @@
-package com.jeliuska.pruebatecnica
+package com.jeliuska.pruebatecnica.activities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(viewMain)
 
     }
-    
+
 
 
 
