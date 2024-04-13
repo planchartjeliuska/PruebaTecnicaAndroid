@@ -1,5 +1,6 @@
 package com.jeliuska.pruebatecnica.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -49,7 +50,11 @@ class MainActivity : AppCompatActivity(), AdapterUsers.OnUserListener {
     }
 
     override fun onMenuClick(usersResponseItem: UsersResponseItem) {
-        val id = usersResponseItem.id
+        val idUser = usersResponseItem.id
+
+        startActivity(Intent(this, DetailUserActivity::class.java).apply {
+            putExtra("idUser",idUser )
+        })
 
     }
 

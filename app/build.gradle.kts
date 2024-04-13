@@ -57,7 +57,9 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-
     //viewmodel
     implementation(libs.androidx.activity.ktx)
+
+    //google maps
+    implementation(libs.play.services.maps)
 }
