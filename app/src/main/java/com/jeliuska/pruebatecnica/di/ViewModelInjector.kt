@@ -1,6 +1,5 @@
-package com.jeliuska.pruebatecnica
+package com.jeliuska.pruebatecnica.di
 
-import android.content.Context
 import com.jeliuska.pruebatecnica.viewmodel.MainViewModelFactory
 
 object ViewModelInjector {
@@ -9,9 +8,9 @@ object ViewModelInjector {
 
     fun provideMainViewModelFactory(): MainViewModelFactory {
         if (mainViewModelFactory != null){
-            return this.mainViewModelFactory!!
+            return mainViewModelFactory!!
         }else{
-            this.mainViewModelFactory = MainViewModelFactory(
+            mainViewModelFactory = MainViewModelFactory(
                 userRepository = RepositoryInjector.provideUserRepository()
             )
             return mainViewModelFactory!!

@@ -1,16 +1,16 @@
 package com.jeliuska.pruebatecnica.activities
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.jeliuska.pruebatecnica.ViewModelInjector
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeliuska.pruebatecnica.adapters.AdapterUsers
+import com.jeliuska.pruebatecnica.data.remote.response.UsersResponseItem
 import com.jeliuska.pruebatecnica.databinding.ActivityMainBinding
+import com.jeliuska.pruebatecnica.di.ViewModelInjector
 import com.jeliuska.pruebatecnica.viewmodel.MainViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AdapterUsers.OnUserListener {
 
     private lateinit var mainBinding : ActivityMainBinding
 
@@ -23,9 +23,35 @@ class MainActivity : AppCompatActivity() {
         val viewMain = mainBinding.root
         setContentView(viewMain)
 
+        getUsers()
+        observeViewModel()
     }
 
 
+    private fun getUsers(){
+        viewModel.getUsers()
+    }
+    private fun observeViewModel(){
+        viewModel.users.observe(this){
+            //ENVIAR DATOS AL RECICLER
+            mainBinding.recyclerMenu.setLayoutManager(
+                LinearLayoutManager(
+                    this,
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+            )
+            mainBinding.recyclerMenu.adapter = AdapterUsers( it,this)
+        }
+        viewModel.messageError.observe(this){
+            it
+        }
+    }
+
+    override fun onMenuClick(usersResponseItem: UsersResponseItem) {
+        val id = usersResponseItem.id
+
+    }
 
 
 }
