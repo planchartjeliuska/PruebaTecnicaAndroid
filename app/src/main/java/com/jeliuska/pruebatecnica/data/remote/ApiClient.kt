@@ -6,6 +6,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 object ApiClient {
     private const val BASE_URL = "https://jsonplaceholder.typicode.com"
@@ -26,6 +27,12 @@ object ApiClient {
 
         @GET ("/users")
         fun getUsers(): Call<ArrayList<UsersResponseItem>>
+
+        @GET ("/users/{id}")
+        fun getDetailUser(@Path("id") idUser: Int): Call<UsersResponseItem>
     }
+
+
+
 
 }

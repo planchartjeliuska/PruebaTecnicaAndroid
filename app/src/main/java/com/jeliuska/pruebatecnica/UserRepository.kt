@@ -35,6 +35,33 @@ class UserRepository(
 
     }
 
+    fun getDetailUser(
+        idUser : Int,
+    onComplete: (UsersResponseItem)-> Unit,
+    onError : (Throwable) -> Unit
+    ){
+        servicesApi.getDetailUser(idUser).enqueue(object : Callback<UsersResponseItem>{
+            override fun onResponse(
+                call: Call<UsersResponseItem>,
+                response: Response<UsersResponseItem>
+            ) {
+                if (response.isSuccessful){
+                    response.body()?.let { onComplete(it) }
+                }else{
+                    onError(Throwable("Error"))
+                }
+            }
+            override fun onFailure(p0: Call<UsersResponseItem>, p1: Throwable) {
+                onError(p1)
+            }
+
+        })
+
+    }
+    /*
+    *
+    * */
+
 
 
 }

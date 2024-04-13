@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity(), AdapterUsers.OnUserListener {
 
     override fun onMenuClick(usersResponseItem: UsersResponseItem) {
         val idUser = usersResponseItem.id
-
         startActivity(Intent(this, DetailUserActivity::class.java).apply {
             putExtra("idUser",idUser )
         })
