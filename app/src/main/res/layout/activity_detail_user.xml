@@ -135,7 +135,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="Direccion"
+                        android:text="Address"
                         android:textColor="@color/purple_"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"

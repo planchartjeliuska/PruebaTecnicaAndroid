@@ -83,14 +83,14 @@ class DetailUserActivity : AppCompatActivity(), OnMapReadyCallback {
             detailBinding.textUsername.text = it.username
             detailBinding.textEmail.text = it.email
             detailBinding.textName.text = it.name
-            detailBinding.textStreet.text = "Calle: " + it.address.street
+            detailBinding.textStreet.text = "Street: " + it.address.street
             detailBinding.textSuite.text = it.address.suite
-            detailBinding.textCity.text = "Ciudad: " + it.address.city
-            detailBinding.textPostalCode.text = "Código postal: " + it.address.zipcode
+            detailBinding.textCity.text = "City: " + it.address.city
+            detailBinding.textPostalCode.text = "Zip Code: " + it.address.zipcode
             detailBinding.textPhone.text = it.phone
             detailBinding.textWeb.text = it.website
             detailBinding.textNameCompany.text = it.company.name
-            detailBinding.textCatchPhrase.text = "Frase de captura: " + it.company.catchPhrase
+            detailBinding.textCatchPhrase.text = "Phrase" + it.company.catchPhrase
             detailBinding.textBs.text = it.company.bs
         }
         viewModel.messageError.observe(this){
@@ -119,7 +119,7 @@ class DetailUserActivity : AppCompatActivity(), OnMapReadyCallback {
             map.addMarker(marker)
             map.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(coordinates,10f),
-                4000,
+                1000,
                 null
             )
         }
