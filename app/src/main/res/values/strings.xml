@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">PruebaTecnica</string>
+    <string name="text_user">USUARIOS</string>
+    <string name="name_user">Nombre de Usuario</string>
+    <string name="email">Correo electrónico</string>
+
+    <style name="Button">
+        <item name="android:textColor">@color/purple</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:radius">50dp</item>
+        <item name="android:background">@drawable/button</item>
+    </style>
+
+
+    <style name="AppTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- línea inferior -->
+        <item name="boxStrokeColor">@color/purple_</item>
+        <!-- el color de relleno, (por defecto es colorOnSurface)-->
+        <!-- el hint cuando el campo está vacio y sin foco-->
+        <item name="android:textColorHint">@color/letter</item>
+        <!-- el hint cuando se convierte en etiqueta flotante-->
+        <item name="hintTextColor">@color/purple_</item>
+    </style>
+
+
 </resources>
