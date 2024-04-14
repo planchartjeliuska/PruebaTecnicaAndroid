@@ -1,8 +1,10 @@
 package com.jeliuska.pruebatecnica.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -35,8 +37,12 @@ class DetailUserActivity : AppCompatActivity(), OnMapReadyCallback {
         val bundle = intent.extras
         val idUser = bundle?.getInt("idUser")
 
+        detailBinding.backButton.setOnClickListener {
+            finish()
+        }
+
         getDetailsUser(idUser)
-        createFragment()
+        createMapFragment()
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
@@ -44,9 +50,26 @@ class DetailUserActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
+        detailBinding.addressHeader.setOnClickListener {
+            if (detailBinding.containerAddress.visibility == View.GONE) {
+                detailBinding.containerAddress.visibility = View.VISIBLE
+                detailBinding.expandAddressArrow.setImageDrawable(AppCompatResources.getDrawable(this, R.drawable.baseline_arrow_drop_up_24))
+            } else {
+                detailBinding.containerAddress.visibility = View.GONE
+                detailBinding.expandAddressArrow.setImageDrawable(AppCompatResources.getDrawable(this, R.drawable.twotone_arrow_drop_down_24))
+            }
+        }
 
+        detailBinding.companyHeader.setOnClickListener {
+            if (detailBinding.containerCompany.visibility == View.GONE) {
+                detailBinding.containerCompany.visibility = View.VISIBLE
+                detailBinding.expandCompanyArrow.setImageDrawable(AppCompatResources.getDrawable(this, R.drawable.baseline_arrow_drop_up_24))
+            } else {
+                detailBinding.containerCompany.visibility = View.GONE
+                detailBinding.expandCompanyArrow.setImageDrawable(AppCompatResources.getDrawable(this, R.drawable.twotone_arrow_drop_down_24))
+            }
+        }
     }
-
 
     private fun getDetailsUser(idUser: Int?) {
         viewModel.getDetailUser(idUser!!)
@@ -57,17 +80,25 @@ class DetailUserActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun observeViewModel(){
         viewModel.detail.observe(this){
 
-            detailBinding.tvNameUser.text = it.name
-            detailBinding.tvuserNameUser.text = it.username
-            detailBinding.tvemailUser.text = it.email
-            detailBinding.tvaddressUser.text = it.website
+            detailBinding.textUsername.text = it.username
+            detailBinding.textEmail.text = it.email
+            detailBinding.textName.text = it.name
+            detailBinding.textStreet.text = "Calle: " + it.address.street
+            detailBinding.textSuite.text = it.address.suite
+            detailBinding.textCity.text = "Ciudad: " + it.address.city
+            detailBinding.textPostalCode.text = "Código postal: " + it.address.zipcode
+            detailBinding.textPhone.text = it.phone
+            detailBinding.textWeb.text = it.website
+            detailBinding.textNameCompany.text = it.company.name
+            detailBinding.textCatchPhrase.text = "Frase de captura: " + it.company.catchPhrase
+            detailBinding.textBs.text = it.company.bs
         }
         viewModel.messageError.observe(this){
             it
         }
     }
 
-    private fun createFragment() {
+    private fun createMapFragment() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
@@ -87,12 +118,10 @@ class DetailUserActivity : AppCompatActivity(), OnMapReadyCallback {
 
             map.addMarker(marker)
             map.animateCamera(
-                CameraUpdateFactory.newLatLngZoom(coordinates,15f),
+                CameraUpdateFactory.newLatLngZoom(coordinates,10f),
                 4000,
                 null
             )
         }
     }
-
-
 }
